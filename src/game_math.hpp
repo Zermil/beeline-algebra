@@ -112,6 +112,8 @@ Matrix matrix_create_filled(int rows, int cols, float val)
 
 void matrix_free(Matrix *matrix)
 {
+    GM_ASSERT(matrix->data != NULL, "Attempting to free uninitialized memory");
+    
     matrix->rows = 0;
     matrix->cols = 0;
     
@@ -225,6 +227,8 @@ Vector vector_create(int components)
 
 void vector_free(Vector *vector)
 {
+    GM_ASSERT(vector->data != NULL, "Attempting to free uninitialized memory");
+    
     vector->components = 0;
     
     free(vector->data);
