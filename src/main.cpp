@@ -2,7 +2,7 @@
 #include <cstdlib>
 
 #define GAME_MATH_IMPLEMENTATION
-#include "game_math.hpp"
+#include "game_math.h"
 
 int main(int argc, char **argv)
 {

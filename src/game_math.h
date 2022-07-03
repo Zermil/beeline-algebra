@@ -1,8 +1,8 @@
 #ifndef GAME_MATH_H_
 #define GAME_MATH_H_
 
-#include <cstdlib>
-#include <cstdio>
+#include <stdlib.h>
+#include <stdio.h>
 
 #ifndef NDEBUG
 #define GM_ASSERT(cond, msg)                                            \
@@ -40,16 +40,16 @@
 #define GM_PRINT_VEC(vector_ptr) ((void)0)
 #endif // NDEBUG
 
-struct Matrix {
+typedef struct {
     int rows;
     int cols;
     float *data;
-};
+} Matrix;
 
-struct Vector {
+typedef struct {
     int components;
     float *data;
-};
+} Vector;
 
 // Matrix operations
 Matrix matrix_create(int rows, int cols);
