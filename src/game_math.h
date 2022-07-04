@@ -52,12 +52,13 @@ typedef struct {
 } Vector;
 
 // Matrix operations
-Matrix matrix_create(int rows, int cols);
 Matrix matrix_create_filled(int rows, int cols, float val);
+Matrix matrix_create(int rows, int cols);
 void matrix_free(Matrix *matrix);
 void matrix_set(Matrix *matrix, int row, int col, float val);
 void matrix_fill(Matrix *matrix, float val);
-Matrix matrix_identity();
+Matrix matrix_identity(int row, int col);
+Matrix matrix_identity(int row, int col, float val);
 Matrix matrix_add(Matrix *a, Matrix *b);
 Matrix matrix_sub(Matrix *a, Matrix *b);
 Matrix matrix_mult(Matrix *a, Matrix *b);
@@ -74,24 +75,6 @@ void vector_set(Vector *vector, int idx, float val);
 // ================================================================================
 // Matrix operations
 // ================================================================================
-Matrix matrix_create(int rows, int cols)
-{
-    GM_ASSERT(rows > 0 && cols > 0, "Trying to create a matrix with one dimension being <= 0");
-    
-    Matrix matrix = {};
-    matrix.rows = rows;
-    matrix.cols = cols;
-    matrix.data = (float *) malloc(rows * cols * sizeof(float));
-    
-    GM_ASSERT(matrix.data != NULL, "Could not allocate memory for matrix\'s data"); 
-    
-    for (int i = 0; i < rows * cols; ++i) {
-        matrix.data[i] = 0;
-    }
-    
-    return matrix; 
-}
-
 Matrix matrix_create_filled(int rows, int cols, float val)
 {
     GM_ASSERT(rows > 0 && cols > 0, "Trying to create a matrix with one dimension being <= 0");
@@ -108,6 +91,11 @@ Matrix matrix_create_filled(int rows, int cols, float val)
     }
     
     return matrix;
+}
+
+Matrix matrix_create(int rows, int cols)
+{
+    return matrix_create_filled(rows, cols, 0.0f); 
 }
 
 void matrix_free(Matrix *matrix)
@@ -137,15 +125,20 @@ void matrix_fill(Matrix *matrix, float val)
     }
 }
 
-Matrix matrix_identity(int rows, int cols)
+Matrix matrix_identity(int rows, int cols, float val)
 {
     Matrix matrix = matrix_create(rows, cols);
     
     for (int i = 0; i < rows * cols; i += cols + 1) {
-        matrix.data[i] = 1;
+        matrix.data[i] = val;
     }
     
     return matrix;
+}
+
+Matrix matrix_identity(int rows, int cols)
+{
+    return matrix_identity(rows, cols, 1.0f);
 }
 
 Matrix matrix_add(Matrix *a, Matrix *b)
