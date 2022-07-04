@@ -1,8 +1,8 @@
 #ifndef GAME_MATH_H_
 #define GAME_MATH_H_
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 
 #ifndef NDEBUG
 #define GM_ASSERT(cond, msg)                                            \
@@ -40,19 +40,19 @@
 #define GM_PRINT_VEC(vector_ptr) ((void)0)
 #endif // NDEBUG
 
-typedef struct {
+struct Matrix {
     int rows;
     int cols;
     float *data;
 } Matrix;
 
-typedef struct {
+struct Vector {
     int components;
     float *data;
 } Vector;
 
 // Matrix operations
-Matrix matrix_create_filled(int rows, int cols, float val);
+Matrix matrix_create(int rows, int cols, float val);
 Matrix matrix_create(int rows, int cols);
 void matrix_free(Matrix *matrix);
 void matrix_set(Matrix *matrix, int row, int col, float val);
@@ -75,7 +75,7 @@ void vector_set(Vector *vector, int idx, float val);
 // ================================================================================
 // Matrix operations
 // ================================================================================
-Matrix matrix_create_filled(int rows, int cols, float val)
+Matrix matrix_create(int rows, int cols, float val)
 {
     GM_ASSERT(rows > 0 && cols > 0, "Trying to create a matrix with one dimension being <= 0");
     
