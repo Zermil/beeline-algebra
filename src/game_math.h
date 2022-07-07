@@ -2,9 +2,10 @@
 #define GAME_MATH_H_
 
 #include <cstdlib>
-#include <cstdio>
 
 #ifndef NDEBUG
+#include <cstdio>
+
 #define GM_ASSERT(cond, msg)                                            \
     do {                                                                \
         if (!(cond)) {                                                  \
