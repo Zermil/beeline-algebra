@@ -2,7 +2,7 @@
 
 REM Change this to your visual studio's 'vcvars64.bat' script path
 set MSVC_PATH="YOUR_PATH"
-set CXXFLAGS=/std:c++17 /EHsc /W4 /WX /wd4996 /nologo %*
+set CXXFLAGS=/std:c++17 /EHsc /W4 /WX /wd4996 /wd4201 /nologo %*
 
 call %MSVC_PATH%\vcvars64.bat
 
