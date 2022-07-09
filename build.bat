@@ -8,5 +8,5 @@ call %MSVC_PATH%\vcvars64.bat
 
 pushd %~dp0
 if not exist .\build mkdir build
-cl %CXXFLAGS% src\main.cpp /Fo:build\ /Fe:build\sandbox.exe
+cl %CXXFLAGS% src\main.cpp /Fo:build\ /Fe:build\bline.exe
 popd
