@@ -1,125 +1,76 @@
 #include <cstdio>
 #include <cstdlib>
 
-#define GAME_MATH_IMPLEMENTATION
-#include "game_math.h"
+#define BEELINE_IMPLEMENTATION
+#include "bee_algebra.hpp"
 
 int main(int argc, char **argv)
 {
     (void) argc;
     (void) argv;
 
-    printf("\nFill matrix\n");
+    printf("Matrices\n--------------------");
     {
-        Matrix matrix_a = matrix_create(2, 2, 3);
-        GM_PRINT_MAT(&matrix_a);
-        
-        Matrix matrix_b = matrix_create(2, 2);
-        matrix_fill(&matrix_b, 4);
-        GM_PRINT_MAT(&matrix_b);
+        Mat4 matrix = create_mat4(3.0f);
+        scale_mat4(&matrix, 2.0f);
+        GM_PRINT_MAT4(&matrix);
 
-        matrix_free(&matrix_a);
-        matrix_free(&matrix_b);
+        Mat4 identity = create_mat4_identity(3.0f);
+        GM_PRINT_MAT4(&identity);
+
+        Mat4 add = add_mat4(&matrix, &identity);
+        Mat4 sub = sub_mat4(&matrix, &identity);
+        
+        GM_PRINT_MAT4(&add);
+        GM_PRINT_MAT4(&sub);
+
+        Mat4 a = {};
+        a.elements[0] = 1.0f;
+        a.elements[1] = 2.0f;
+        a.elements[4] = 3.0f;
+        a.elements[5] = 4.0f;
+        
+        Mat4 b = {};
+        b.elements[0] = 5.0f;
+        b.elements[1] = 6.0f;
+        b.elements[4] = 7.0f;
+        b.elements[5] = 8.0f;
+
+        Mat4 mult = mult_mat4(&a, &b);
+        GM_PRINT_MAT4(&mult);
+
+        Mat4 ortho = create_mat4_ortho(0.0f, 800.0f, 0.0f, 600.0f, 0.1f, 100.0f);
+        Mat4 perspective = create_mat4_perspective(45.0f, 800.0f/600.0f, 0.1f, 100.0f);
+        GM_PRINT_MAT4(&ortho);
+        GM_PRINT_MAT4(&perspective);
     }
 
-    printf("\nIdentity matrix\n");
+    printf("\nVectors\n--------------------\n");
     {
-        Matrix identity_a = matrix_identity(4, 4);
-        GM_PRINT_MAT(&identity_a);
-
-        Matrix identity_b = matrix_identity(2, 2);
-        GM_PRINT_MAT(&identity_b);
+        Vec2 vec2 = create_vec2(1.0f, 2.0f);
+        Vec3 vec3 = create_vec3(1.0f, 2.0f, 3.0f);
         
-        matrix_free(&identity_a);
-        matrix_free(&identity_b);
-    }
-
-    printf("\nMatrix basic math\n");
-    {
-        Matrix matrix_a = matrix_create(2, 2);
-        matrix_set(&matrix_a, 0, 0, 1);
-        matrix_set(&matrix_a, 0, 1, 2);
-        matrix_set(&matrix_a, 1, 0, 3);
-        matrix_set(&matrix_a, 1, 1, 4);
+        Vec4 vec4 = create_vec4(1.0f, 2.0f, 3.0f, 4.0f);
+        scale_vec4(&vec4, 2.0f);
         
-        Matrix matrix_b = matrix_create(2, 2);
-        matrix_set(&matrix_b, 0, 0, 5);
-        matrix_set(&matrix_b, 0, 1, 6);
-        matrix_set(&matrix_b, 1, 0, 7);
-        matrix_set(&matrix_b, 1, 1, 8);
-        
-        Matrix add = matrix_add(&matrix_a, &matrix_b);
-        GM_PRINT_MAT(&add);
+        GM_PRINT_VEC2(&vec2);
+        GM_PRINT_VEC3(&vec3);
+        GM_PRINT_VEC4(&vec4);
 
-        matrix_scale(&matrix_a, 2);
-        GM_PRINT_MAT(&matrix_a);
+        Vec2 a = create_vec2(0.6f, -0.8f);
+        Vec2 b = create_vec2(0.0f, 1.0f);
+        float dot = dot_vec2(&a, &b);
+        printf("Dot product: %.2f\n", dot);
 
-        matrix_set(&matrix_a, 0, 0, 4);
-        matrix_set(&matrix_a, 0, 1, 2);
-        matrix_set(&matrix_a, 1, 0, 1);
-        matrix_set(&matrix_a, 1, 1, 6);
+        Vec3 u = create_vec3(2.0f, 0.0f, 0.0f);
+        Vec3 v = create_vec3(2.0f, 2.0f, 0.0f);
+        Vec3 uv = cross_vec3(&u, &v);
 
-        matrix_set(&matrix_b, 0, 0, 2);
-        matrix_set(&matrix_b, 0, 1, 4);
-        matrix_set(&matrix_b, 1, 0, 0);
-        matrix_set(&matrix_b, 1, 1, 1);
-        
-        Matrix sub = matrix_sub(&matrix_a, &matrix_b);
-        GM_PRINT_MAT(&sub);
+        GM_PRINT_VEC3(&uv);
 
-        matrix_free(&matrix_a);
-        matrix_free(&matrix_b);
-        matrix_free(&add);
-        matrix_free(&sub);
+        float len = len_vec2(&vec2);
+        printf("Length: %.2f\n", len);
     }
     
-    printf("\nMultiply matricies\n");
-    {
-        Matrix matrix_a = matrix_create(2, 2);
-        matrix_set(&matrix_a, 0, 0, 1);
-        matrix_set(&matrix_a, 0, 1, 2);
-        matrix_set(&matrix_a, 1, 0, 3);
-        matrix_set(&matrix_a, 1, 1, 4);
-    
-        Matrix matrix_b = matrix_create(2, 2);
-        matrix_set(&matrix_b, 0, 0, 5);
-        matrix_set(&matrix_b, 0, 1, 6);
-        matrix_set(&matrix_b, 1, 0, 7);
-        matrix_set(&matrix_b, 1, 1, 8);
-
-        Matrix mult = matrix_mult(&matrix_a, &matrix_b);
-        GM_PRINT_MAT(&mult);
-    
-        matrix_free(&matrix_a);
-        matrix_free(&matrix_b);
-        matrix_free(&mult);
-    }
-
-    printf("\nVector basics\n");
-    {
-        Vector vec2 = vector_create(2);
-        vector_set(&vec2, 0, 1);
-        vector_set(&vec2, 1, 2);
-        GM_PRINT_VEC(&vec2);
-
-        Vector vec3 = vector_create(3);
-        vector_set(&vec3, 0, 1);
-        vector_set(&vec3, 1, 2);
-        vector_set(&vec3, 2, 3);
-        GM_PRINT_VEC(&vec3);
-
-        Vector vec5 = vector_create(5);
-        vector_set(&vec5, 0, 1);
-        vector_set(&vec5, 1, 2);
-        vector_set(&vec5, 2, 3);
-        vector_set(&vec5, 3, 4);
-        vector_set(&vec5, 4, 5);
-        GM_PRINT_VEC(&vec5);
-
-        vector_free(&vec2);
-        vector_free(&vec3);
-        vector_free(&vec5);
-    }
-
     return 0;
 }
