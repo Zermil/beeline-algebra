@@ -45,12 +45,12 @@ struct Matrix {
     int rows;
     int cols;
     float *data;
-} Matrix;
+};
 
 struct Vector {
     int components;
     float *data;
-} Vector;
+};
 
 // Matrix operations
 Matrix matrix_create(int rows, int cols, float val);
@@ -96,7 +96,7 @@ Matrix matrix_create(int rows, int cols, float val)
 
 Matrix matrix_create(int rows, int cols)
 {
-    return matrix_create_filled(rows, cols, 0.0f); 
+    return matrix_create(rows, cols, 0.0f); 
 }
 
 void matrix_free(Matrix *matrix)

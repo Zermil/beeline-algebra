@@ -11,7 +11,7 @@ int main(int argc, char **argv)
 
     printf("\nFill matrix\n");
     {
-        Matrix matrix_a = matrix_create_filled(2, 2, 3);
+        Matrix matrix_a = matrix_create(2, 2, 3);
         GM_PRINT_MAT(&matrix_a);
         
         Matrix matrix_b = matrix_create(2, 2);
