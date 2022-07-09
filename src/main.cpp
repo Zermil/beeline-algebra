@@ -2,7 +2,7 @@
 #include <cstdlib>
 
 #define BEELINE_IMPLEMENTATION
-#include "bee_algebra.hpp"
+#include "bee_algebra.h"
 
 int main(int argc, char **argv)
 {

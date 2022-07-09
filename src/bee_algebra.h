@@ -1,9 +1,9 @@
 #ifndef BEELINE_ALGEBRA_H_
 #define BEELINE_ALGEBRA_H_
 
-#include <cstdlib>
-#include <cstdio>
-#include <cmath>
+#include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
 
 #ifndef NDEBUG
 #define GM_ASSERT(cond, msg) _gm_assert(cond, msg, __LINE__, __FILE__)
@@ -217,7 +217,7 @@ Mat4 create_mat4_perspective(float fov_degrees, float aspect, float n, float f)
     Mat4 out = {};
     
     float radians = fov_degrees * (3.14159f / 180.0f);
-    float t = n * tan(radians / 2.0f);
+    float t = n * tanf(radians / 2.0f);
     float b = -t;
     float r = t * aspect;
     float l = -r;
