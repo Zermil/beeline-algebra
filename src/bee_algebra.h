@@ -109,6 +109,7 @@ Mat4 create_mat4();
 Mat4 create_mat4_identity(float num);
 Mat4 create_mat4_identity();
 Mat4 create_mat4_ortho(float l, float r, float b, float t, float n, float f);
+Mat4 create_mat4_ortho(float l, float r, float b, float t);
 Mat4 create_mat4_perspective(float fov_degrees, float aspect, float n, float f);
 Mat4 sub_mat4(Mat4 *a, Mat4 *b);
 Mat4 add_mat4(Mat4 *a, Mat4 *b);
@@ -209,6 +210,20 @@ Mat4 create_mat4_ortho(float l, float r, float b, float t, float n, float f)
     out.elements[11] = -(f + n) / (f - n);
     out.elements[15] = 1.0f;
     
+    return out;
+}
+
+Mat4 create_mat4_ortho(float l, float r, float b, float t)
+{
+    Mat4 out = {};
+
+    out.elements[0] = 2.0f / (r - l);
+    out.elements[5] = 2.0f / (t - b);
+    out.elements[10] = -1.0f;
+    out.elements[15] = 1.0f;
+    out.elements[3] = -(r + l) / (r - l);
+    out.elements[7] = -(t + b) / (t - b);
+
     return out;
 }
 
