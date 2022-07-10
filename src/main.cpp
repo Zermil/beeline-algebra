@@ -37,7 +37,12 @@ int main(int argc, char **argv)
         b.elements[5] = 8.0f;
 
         Mat4 mult = mult_mat4(&a, &b);
+        mult.elements[2] = 69.0f;
+        mult.elements[6] = 420.0f;
         GM_PRINT_MAT4(&mult);
+        
+        Mat4 mult_trans = transpose_mat4(&mult);
+        GM_PRINT_MAT4(&mult_trans);
 
         Mat4 ortho = create_mat4_ortho(0.0f, 800.0f, 0.0f, 600.0f, 0.1f, 100.0f);
         Mat4 perspective = create_mat4_perspective(45.0f, 800.0f/600.0f, 0.1f, 100.0f);

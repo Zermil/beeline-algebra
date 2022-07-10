@@ -115,6 +115,7 @@ Mat4 sub_mat4(Mat4 *a, Mat4 *b);
 Mat4 add_mat4(Mat4 *a, Mat4 *b);
 Mat4 mult_mat4(Mat4 *a, Mat4 *b);
 void scale_mat4(Mat4 *matrix, float scale);
+Mat4 transpose_mat4(Mat4 *matrix);
 
 Vec2 create_vec2(float x, float y);
 Vec2 create_vec2();
@@ -286,6 +287,19 @@ Mat4 mult_mat4(Mat4 *a, Mat4 *b)
             for (int k = 0; k < 4; ++k) {
                 out.elements[i * 4 + j] += a->elements[i * 4 + k] * b->elements[k * 4 + j];
             }
+        }
+    }
+    
+    return out;
+}
+
+Mat4 transpose_mat4(Mat4 *matrix)
+{
+    Mat4 out = {};
+
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            out.elements[j * 4 + i] = matrix->elements[i * 4 + j];
         }
     }
     
