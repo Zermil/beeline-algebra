@@ -48,6 +48,13 @@ int main(int argc, char **argv)
         Mat4 perspective = create_mat4_perspective(45.0f, 800.0f/600.0f, 0.1f, 100.0f);
         GM_PRINT_MAT4(&ortho);
         GM_PRINT_MAT4(&perspective);
+
+        Mat4 translation = create_mat4_translation(200.0f, 0.0f, 20.0f);
+        GM_PRINT_MAT4(&translation);
+
+        Mat4 translation_identity = create_mat4_identity();
+        translate_mat4(&translation_identity, 200.0f, 15.0f, 0.0f);
+        GM_PRINT_MAT4(&translation_identity);
     }
 
     printf("\nVectors\n--------------------\n");
