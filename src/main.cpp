@@ -83,6 +83,26 @@ int main(int argc, char **argv)
         float len = len_vec2(&vec2);
         printf("Length: %.2f\n", len);
     }
+
+    printf("\nMath\n--------------------\n");
+    {
+        float x = 100.0f;
+        float y = 450.0f;
+        float v = 0.3f;
+
+        float ans = lerp(x, y, v);
+        printf("%f\n", ans);
+
+        ans = ilerp(x, y, ans);
+        printf("%f\n", ans);
+
+        x = 0.0f;
+        y = 100.0f;
+        v = 120.0f;
+
+        ans = clamp(v, x, y);
+        printf("%f\n", ans);
+    }
     
     return 0;
 }

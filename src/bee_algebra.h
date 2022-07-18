@@ -115,9 +115,11 @@ Mat4 sub_mat4(Mat4 *a, Mat4 *b);
 Mat4 add_mat4(Mat4 *a, Mat4 *b);
 Mat4 mult_mat4(Mat4 *a, Mat4 *b);
 void scale_mat4(Mat4 *matrix, float scale);
+void scale_mat4(Mat4 *matrix, float x, float y, float z);
 Mat4 transpose_mat4(Mat4 *matrix);
 Mat4 create_mat4_translation(float x, float y, float z);
 void translate_mat4(Mat4 *matrix, float x, float y, float z);
+void translate_mat4_to(Mat4 *matrix, float x, float y, float z);
 
 Vec2 create_vec2(float x, float y);
 Vec2 create_vec2();
@@ -155,6 +157,10 @@ Vec4 sub_vec4(Vec4 *a, Vec4 *b);
 float len_vec4(Vec4 *vec);
 float len_vec4_sqrt(Vec4 *vec);
 void norm_vec4(Vec4 *vec);
+
+float clamp(float v, float min, float max);
+float lerp(float min, float max, float v);
+float ilerp(float min, float max, float v);
 
 void _gm_assert(int cond, const char *msg, int line, const char *file);
 void _gm_print_mat4(Mat4 *matrix);
@@ -258,6 +264,13 @@ void scale_mat4(Mat4 *matrix, float scale)
     }
 }
 
+void scale_mat4(Mat4 *matrix, float x, float y, float z)
+{
+    matrix->elements[0] *= x;
+    matrix->elements[5] *= y;
+    matrix->elements[10] *= z;
+}
+
 Mat4 sub_mat4(Mat4 *a, Mat4 *b)
 {
     Mat4 out = {};
@@ -324,6 +337,13 @@ void translate_mat4(Mat4 *matrix, float x, float y, float z)
     matrix->elements[3] += x;
     matrix->elements[7] += y;
     matrix->elements[11] += z;
+}
+
+void translate_mat4_to(Mat4 *matrix, float x, float y, float z)
+{
+    matrix->elements[3] = x;
+    matrix->elements[7] = y;
+    matrix->elements[11] = z;
 }
 
 // ===========================================================================
@@ -587,6 +607,27 @@ void norm_vec4(Vec4 *vec)
     vec->y = vec->y / len;
     vec->z = vec->z / len;
     vec->w = vec->w / len;
+}
+
+// ===========================================================================
+// Math independent from vectors and matrices
+// ===========================================================================
+float clamp(float v, float min, float max)
+{
+    if (v < min) return min;
+    if (v > max) return max;
+    
+    return v;
+}
+
+float lerp(float min, float max, float v)
+{
+    return (max - min) * v + min;
+}
+
+float ilerp(float min, float max, float v)
+{
+    return (v - min) / (max - min);
 }
 
 // ===========================================================================
