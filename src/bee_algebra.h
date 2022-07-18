@@ -321,9 +321,9 @@ Mat4 create_mat4_translation(float x, float y, float z)
 
 void translate_mat4(Mat4 *matrix, float x, float y, float z)
 {
-    matrix->elements[3] = x;
-    matrix->elements[7] = y;
-    matrix->elements[11] = z;
+    matrix->elements[3] += x;
+    matrix->elements[7] += y;
+    matrix->elements[11] += z;
 }
 
 // ===========================================================================
