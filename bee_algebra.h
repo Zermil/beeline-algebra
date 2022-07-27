@@ -159,9 +159,11 @@ float len_vec4(Vec4 *vec);
 float len_vec4_sqrt(Vec4 *vec);
 void norm_vec4(Vec4 *vec);
 
-float clamp(float v, float min, float max);
-float lerp(float min, float max, float v);
-float ilerp(float min, float max, float v);
+float min(float a, float b);
+float max(float a, float b);
+float clamp(float v, float lower, float higher);
+float lerp(float lower, float higher, float v);
+float ilerp(float lower, float higher, float v);
 
 void _gm_assert(int cond, const char *msg, int line, const char *file);
 void _gm_print_mat4(Mat4 *matrix);
@@ -620,22 +622,29 @@ void norm_vec4(Vec4 *vec)
 // ===========================================================================
 // Math independent from vectors and matrices
 // ===========================================================================
-float clamp(float v, float min, float max)
+float min(float a, float b)
 {
-  if (v < min) return min;
-  if (v > max) return max;
-  
-  return v;
+  return (a > b) ? b : a;
 }
 
-float lerp(float min, float max, float v)
+float max(float a, float b) 
 {
-  return (max - min) * v + min;
+  return (a > b) ? a : b;
 }
 
-float ilerp(float min, float max, float v)
+float clamp(float v, float lower, float higher)
 {
-  return (v - min) / (max - min);
+  return max(lower, min(v, higher));
+}
+
+float lerp(float lower, float higher, float v)
+{
+  return (higher - lower) * v + lower;
+}
+
+float ilerp(float lower, float higher, float v)
+{
+  return (v - lower) / (higher - lower);
 }
 
 // ===========================================================================
