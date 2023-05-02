@@ -1,11 +1,14 @@
 #ifndef BEELINE_ALGEBRA_H
 #define BEELINE_ALGEBRA_H
 
-#include <stdlib.h>
-#include <stdio.h>
+#ifndef BEELINE_SQRT
 #include <math.h>
+#define BEELINE_SQRT(x) sqrtf(x)
+#endif BEELINE_SQRT
 
 #ifndef NDEBUG
+#include <stdio.h>
+#include <stdlib.h>
 #define GM_ASSERT(cond, msg) _gm_assert(cond, msg, __LINE__, __FILE__)
 #define GM_PRINT_MAT4(mat4_ptr) _gm_print_mat4(mat4_ptr)
 #define GM_PRINT_VEC2(vec2_ptr) _gm_print_vec2(vec2_ptr)
@@ -426,7 +429,7 @@ float len_vec2(Vec2 *vec)
 
 float len_vec2_sqrt(Vec2 *vec)
 {
-    return sqrtf(len_vec2(vec));
+    return BEELINE_SQRT(len_vec2(vec));
 }
 
 void norm_vec2(Vec2 *vec)
@@ -519,7 +522,7 @@ float len_vec3(Vec3 *vec)
 
 float len_vec3_sqrt(Vec3 *vec)
 {
-    return sqrtf(len_vec3(vec));
+    return BEELINE_SQRT(len_vec3(vec));
 }
 
 void norm_vec3(Vec3 *vec)
@@ -608,7 +611,7 @@ float len_vec4(Vec4 *vec)
 
 float len_vec4_sqrt(Vec4 *vec)
 {
-    return sqrtf(len_vec4(vec));
+    return BEELINE_SQRT(len_vec4(vec));
 }
 
 void norm_vec4(Vec4 *vec)
@@ -657,7 +660,7 @@ void _gm_assert(int cond, const char *msg, int line, const char *file)
 {
     if (!cond) {
         printf("Assertion failed in %s(%d)\n\t%s\n", file, line, msg);
-        abort();
+        exit(1);
     }
 }
 

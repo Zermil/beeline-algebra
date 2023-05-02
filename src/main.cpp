@@ -1,5 +1,4 @@
-#include <cstdio>
-#include <cstdlib>
+#include <stdio.h>
 
 #define BEELINE_IMPLEMENTATION
 #include "../bee_algebra.h"
