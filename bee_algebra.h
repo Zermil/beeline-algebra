@@ -9,11 +9,11 @@
 #ifndef NDEBUG
 #include <stdio.h>
 #include <stdlib.h>
-#define GM_ASSERT(cond, msg) _gm_assert(cond, msg, __LINE__, __FILE__)
-#define GM_PRINT_MAT4(mat4_ptr) _gm_print_mat4(mat4_ptr)
-#define GM_PRINT_VEC2(vec2_ptr) _gm_print_vec2(vec2_ptr)
-#define GM_PRINT_VEC3(vec3_ptr) _gm_print_vec3(vec3_ptr)
-#define GM_PRINT_VEC4(vec4_ptr) _gm_print_vec4(vec4_ptr)
+#define GM_ASSERT(cond, msg) _gm_assert((cond), (msg), __LINE__, __FILE__)
+#define GM_PRINT_MAT4(mat4_ptr) _gm_print_mat4((mat4_ptr))
+#define GM_PRINT_VEC2(vec2_ptr) _gm_print_vec2((vec2_ptr))
+#define GM_PRINT_VEC3(vec3_ptr) _gm_print_vec3((vec3_ptr))
+#define GM_PRINT_VEC4(vec4_ptr) _gm_print_vec4((vec4_ptr))
 #else // DEBUG
 #define GM_ASSERT(cond, msg) ((void)0)
 #define GM_PRINT_MAT4(mat4_ptr) ((void)0)
